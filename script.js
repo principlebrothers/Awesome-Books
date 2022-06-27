@@ -1,6 +1,6 @@
 const displayBook = document.querySelector('.display-Books');
 const addButton = document.querySelector('#addButton');
-const RemoveBtn = document.querySelector('#RemoveBtn');
+
 const books = [];
 
 function book(title, author) {
@@ -27,7 +27,7 @@ function removeBook(selectedBook){
 }
 
 displayBook.addEventListener('click', (e)=>{
-  if(e.target.contain(e.target.title)){
+  if(e.target.classList.contains('removeBtn')){
     removeBook(e.target.title);
   }
   displayBooks();
@@ -36,8 +36,10 @@ displayBook.addEventListener('click', (e)=>{
 
 function displayBooks() {
   displayBook.innerHTML = '';
-  books.forEach(book => {
+  books.forEach((book,index) => {
     displayBook.insertAdjacentHTML('beforeend', `<h3>${book.title}</h3> <h3>${book.author}</h3>
-    <button type='button' id='RemoveBtn' title= '${book.title}'>Remove</button><hr/>`);
+    <button type='button' class='removeBtn' id=${index} title= '${book.title}'>Remove</button><hr/>`);
   })
 }
+
+
