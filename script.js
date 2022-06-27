@@ -1,20 +1,43 @@
-const books = [];
-function book (title, author) {
-    this.title = title,
-    this.author = author
-}
-
- function displayBooks() {
-    books.forEach(book => {
-        
-    })
- }
-function addBook(title, author){
-   books.push(new book(title, author));
-   displayBooks();
-}
-
+const displayBook = document.querySelector('.display-Books');
 const addButton = document.querySelector('#addButton');
-const title = document.querySelector('#title');
-const author = document.querySelector('#author');
-addButton.addEventListener('click',addBook(title, author));
+const RemoveBtn = document.querySelector('#RemoveBtn');
+const books = [];
+
+function book(title, author) {
+  this.title = title;
+    this.author = author;
+}
+
+function addBook(title, author) {
+  books.push(new book(title, author));
+}
+
+addButton.addEventListener('click', ()=>{
+  const title = document.querySelector('#title').value;
+  const author = document.querySelector('#author').value;
+  addBook(title, author);
+  displayBooks();
+});
+
+function removeBook(selectedBook){
+  const newBookList = books.filter((book)=>{
+    return book.title !== selectedBook;
+  })
+  return newBookList;
+}
+
+displayBook.addEventListener('click', (e)=>{
+  if(e.target.contain(e.target.title)){
+    removeBook(e.target.title);
+  }
+  displayBooks();
+});
+
+
+function displayBooks() {
+  displayBook.innerHTML = '';
+  books.forEach(book => {
+    displayBook.insertAdjacentHTML('beforeend', `<h3>${book.title}</h3> <h3>${book.author}</h3>
+    <button type='button' id='RemoveBtn' title= '${book.title}'>Remove</button><hr/>`);
+  })
+}
