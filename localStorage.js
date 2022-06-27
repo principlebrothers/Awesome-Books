@@ -6,12 +6,12 @@ function storedData() {
     title: inputTitle.value,
     author: inputAuthor.value,
   };
-  localStorage.setItem('form', JSON.stringify(formData))
+  localStorage.setItem('form', JSON.stringify(formData));
 }
 
-function getData(){
+function getData() {
   const receivedData = localStorage.getItem('form');
-  if(receivedData) {
+  if (receivedData) {
     const formObject = JSON.parse(receivedData);
     inputTitle.value = formObject.title;
     inputAuthor.value = formObject.author;
