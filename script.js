@@ -1,7 +1,7 @@
 const displayBook = document.querySelector('.display-Books');
 const addButton = document.querySelector('#addButton');
 
-const books = [];
+let books = [];
 
 function book(title, author) {
   this.title = title;
@@ -23,14 +23,15 @@ function removeBook(selectedBook){
   const newBookList = books.filter((book)=>{
     return book.title !== selectedBook;
   })
-  return newBookList;
+  books = newBookList
+  return books;
 }
 
 displayBook.addEventListener('click', (e)=>{
   if(e.target.classList.contains('removeBtn')){
-    removeBook(e.target.title);
+    removeBook(e.target.title)
   }
-  displayBooks();
+  displayBooks(removeBook());
 });
 
 
