@@ -1,26 +1,14 @@
-const inputTitle = document.getElementById('title');
-const inputAuthor = document.getElementById('author');
+const inputTitle = document.getElementById("title");
+const inputAuthor = document.getElementById("author");
 
-function storedData() {
-  const formData = {
-    title: inputTitle.value,
-    author: inputAuthor.value,
-  };
-  localStorage.setItem('form', JSON.stringify(formData));
+function storedData(book) {
+
+  localStorage.setItem("form", JSON.stringify(book));
 }
 
 function getData() {
-  const receivedData = localStorage.getItem('form');
+  const receivedData = localStorage.getItem("form");
   if (receivedData) {
-    const formObject = JSON.parse(receivedData);
-    inputTitle.value = formObject.title;
-    inputAuthor.value = formObject.author;
+    return JSON.parse(receivedData);
   }
 }
-
-window.onload = () => {
-  getData();
-};
-
-inputTitle.onchange = storedData;
-inputAuthor.onchange = storedData;
