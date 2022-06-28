@@ -1,5 +1,17 @@
-const displayBook = document.querySelector(".display-Books");
-const addButton = document.querySelector("#addButton");
+const displayBook = document.querySelector('.display-Books');
+const addButton = document.querySelector('#addButton');
+
+function storedData(book) {
+  localStorage.setItem('form', JSON.stringify(book));
+}
+
+function getData() {
+  const receivedData = localStorage.getItem('form');
+  if (receivedData) {
+    return JSON.parse(receivedData);
+  }
+  return JSON.parse(receivedData);
+}
 
 let books = [];
 
@@ -20,20 +32,22 @@ function addBook(title, author) {
 
 function displayBooks() {
   const allBooks = getData();
-  books = allBooks;
-  displayBook.innerHTML = "";
+  if (allBooks) {
+    books = allBooks;
+  }
+  displayBook.innerHTML = '';
   allBooks.forEach((book) => {
     displayBook.insertAdjacentHTML(
-      "beforeend",
+      'beforeend',
       `<h3>${book.title}</h3> <h3>${book.author}</h3>
-    <button type='button' class='removeBtn' id=${book.id} title= '${book.title}'>Remove</button><hr/>`
+    <button type='button' class='removeBtn' id=${book.id} title= '${book.title}'>Remove</button><hr/>`,
     );
   });
 }
 
-addButton.addEventListener("click", () => {
-  const title = document.querySelector("#title").value;
-  const author = document.querySelector("#author").value;
+addButton.addEventListener('click', () => {
+  const title = document.querySelector('#title').value;
+  const author = document.querySelector('#author').value;
   addBook(title, author);
   displayBooks();
 });
@@ -45,8 +59,8 @@ function removeBook(id) {
   displayBooks();
 }
 
-displayBook.addEventListener("click", (e) => {
-  if (e.target.classList.contains("removeBtn")) {
+displayBook.addEventListener('click', (e) => {
+  if (e.target.classList.contains('removeBtn')) {
     removeBook(e.target.id);
   }
   displayBooks(books);
