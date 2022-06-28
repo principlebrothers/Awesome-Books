@@ -16,19 +16,23 @@ function getData() {
 let books = [];
 
 class Book {
-  constructor(id, title, author) {
+  constructor(title, author, id) {
     this.id = id;
     this.title = title;
     this.author = author;
   }
+  addBook() {
+    const id = books.length +1;
+
+    books.push(new Book(this.title, this.author, id));
+    return books;
+  }
+  static removeBook(bookCollection,id) {
+    return bookCollection.filter((book) => book.id !== +id);  
+  }
+  
 }
 
-function addBook(title, author) {
-  const id = books.length + 1;
-  const newBook = new Book(id, title, author);
-  books.push(newBook);
-  storedData(books);
-}
 
 function displayBooks() {
   const allBooks = getData();
@@ -36,7 +40,7 @@ function displayBooks() {
     books = allBooks;
   }
   displayBook.innerHTML = '';
-  allBooks.forEach((book) => {
+  books.forEach((book) => {
     displayBook.insertAdjacentHTML(
       'beforeend',
       `<h3>${book.title}</h3> <h3>${book.author}</h3>
@@ -44,26 +48,24 @@ function displayBooks() {
     );
   });
 }
-
 addButton.addEventListener('click', () => {
   const title = document.querySelector('#title').value;
   const author = document.querySelector('#author').value;
-  addBook(title, author);
+  const newBook = new Book(title, author);
+  storedData(newBook.addBook());
   displayBooks();
+  
 });
 
-function removeBook(id) {
-  const allBooks = getData();
-  const newBookList = allBooks.filter((book) => book.id !== +id);
-  storedData(newBookList);
-  displayBooks();
-}
 
 displayBook.addEventListener('click', (e) => {
   if (e.target.classList.contains('removeBtn')) {
-    removeBook(e.target.id);
+    const allBooks = getData();
+    const id = e.target.id;
+    const remainingBooks = Book.removeBook(allBooks,id);
+    storedData(remainingBooks);
+    displayBooks();
   }
-  displayBooks(books);
 });
 
 window.onload = () => {
