@@ -3,3 +3,7 @@
   font-family: 'Patrick Hand', cursive;
   font-size: 105%;
 }
+
+.invisible {
+  display: none;
+}

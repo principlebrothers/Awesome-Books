@@ -73,6 +73,36 @@ displayBook.addEventListener('click', (e) => {
   }
 });
 
+const listNav = document.querySelector('#list');
+const addNewNav = document.querySelector('#addNew');
+const contactNav = document.querySelector('#contact');
+const shelveBooks = document.querySelector('#displayBook');
+const addNewBook = document.querySelector('#addBook');
+const contactInfo = document.querySelector('#contactInfo');
+
+  addNewNav.addEventListener('click', e => {
+    e.preventDefault();
+    addNewBook.classList.remove('invisible');
+    if(shelveBooks) shelveBooks.classList.add('invisible');
+    if(contactInfo) contactInfo.classList.add('invisible');
+  })
+
+  listNav.addEventListener('click', e => {
+    e.preventDefault();
+    shelveBooks.classList.remove('invisible');
+    if(addNewBook) addNewBook.classList.add('invisible');
+    if(contactInfo) contactInfo.classList.add('invisible');
+  })
+
+  
+  contactNav.addEventListener('click', e => {
+    e.preventDefault();
+    contactInfo.classList.remove('invisible');
+    if(addNewBook) addNewBook.classList.add('invisible');
+    if(shelveBooks) shelveBooks.classList.add('invisible');
+  })
+
+
 window.onload = () => {
   getData();
   displayBooks();

@@ -20,13 +20,13 @@
         <a class="navbar-brand fs-3" href="#">Awesome Books</a>
         <ul class="nav justify-content-end">
           <li class="nav-item border border-white border-start-0 border-top-0 border-bottom-0 border-end-4">
-            <a class="nav-link active link-hover text-white fw-bold" aria-current="page" href="#">List</a>
+            <a class="nav-link active link-hover text-white fw-bold" aria-current="page" id="list" href="#">List</a>
           </li>
           <li class="nav-item border border-white border-start-0 border-top-0 border-bottom-0 border-end-4">
-            <a class="nav-link text-white fw-bold" href="#">Add new</a>
+            <a class="nav-link text-white fw-bold" id="addNew" href="#">Add new</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white fw-bold" href="#">Contact</a>
+            <a class="nav-link text-white fw-bold" id="contact" href="#">Contact</a>
           </li>
         </ul>
       </nav>
@@ -37,12 +37,12 @@
     <main>
       <section class="book-container">
         <!--Display book-->
-        <div class="display-Books border border-dark border-4 w-75 mx-auto">
+        <article class="display-Books border border-dark border-4 w-75 mx-auto" id="displayBook">
 
-        </div><br>
+        </article><br>
 
         <!--Add book-->
-        <article class="add-book">
+        <article class="add-book invisible" id="addBook">
           <h1>Add a new book</h1>
           <form class="w-50 mx-auto">
             <input class="form-control" type="text" id="title" placeholder="Title" required><br><br>
@@ -55,7 +55,7 @@
         <br><br>
 
         <!--Contact Section-->
-        <article class="contact-info">
+        <article class="contact-info invisible" id ="contactInfo">
           <h1>Contact Information</h1>
           <div class="contact-details">
             <p>Do you have any questions or you just wants to say "Hello"?<br>
