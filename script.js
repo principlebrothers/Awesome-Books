@@ -1,5 +1,5 @@
 const displayBook = document.querySelector('.display-Books');
-const addButton = document.querySelector('#addButton');
+const form = document.querySelector('form');
 
 function storedData(book) {
   localStorage.setItem('form', JSON.stringify(book));
@@ -16,18 +16,22 @@ function getData() {
 let books = [];
 
 class Book {
-  constructor(id, title, author) {
+  constructor(title, author, id) {
     this.id = id;
     this.title = title;
     this.author = author;
   }
-}
 
-function addBook(title, author) {
-  const id = books.length + 1;
-  const newBook = new Book(id, title, author);
-  books.push(newBook);
-  storedData(books);
+  addBook() {
+    const id = books.length + 1;
+
+    books.push(new Book(this.title, this.author, id));
+    return books;
+  }
+
+  static removeBook(bookCollection, id) {
+    return bookCollection.filter((book) => book.id !== +id);
+  }
 }
 
 function displayBooks() {
@@ -36,34 +40,37 @@ function displayBooks() {
     books = allBooks;
   }
   displayBook.innerHTML = '';
-  allBooks.forEach((book) => {
+  let index = 1;
+  books.forEach((book) => {
     displayBook.insertAdjacentHTML(
       'beforeend',
-      `<h3>${book.title}</h3> <h3>${book.author}</h3>
-    <button type='button' class='removeBtn' id=${book.id} title= '${book.title}'>Remove</button><hr/>`,
+      `<div class='d-flex justify-content-between p-1 ${index % 2 === 0 ? '' : 'bg-secondary text-white'}'><div class='d-flex'><h3>${book.title}
+      </h3> &nbsp; &nbsp; <h3>by</h3> &nbsp; &nbsp; <h3>${book.author}</h3></div>
+      <button type='button' class='removeBtn btn btn-danger' id=${book.id} title= '${book.title}'>Remove</button></div>`,
     );
+    index += 1;
   });
 }
 
-addButton.addEventListener('click', () => {
+form.addEventListener('submit', (e) => {
   const title = document.querySelector('#title').value;
   const author = document.querySelector('#author').value;
-  addBook(title, author);
+  const newBook = new Book(title, author);
+  storedData(newBook.addBook());
   displayBooks();
+  document.querySelector('#title').value = '';
+  document.querySelector('#author').value = '';
+  e.preventDefault();
 });
-
-function removeBook(id) {
-  const allBooks = getData();
-  const newBookList = allBooks.filter((book) => book.id !== +id);
-  storedData(newBookList);
-  displayBooks();
-}
 
 displayBook.addEventListener('click', (e) => {
   if (e.target.classList.contains('removeBtn')) {
-    removeBook(e.target.id);
+    const allBooks = getData();
+    const { id } = e.target;
+    const remainingBooks = Book.removeBook(allBooks, id);
+    storedData(remainingBooks);
+    displayBooks();
   }
-  displayBooks(books);
 });
 
 window.onload = () => {
