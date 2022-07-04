@@ -79,6 +79,9 @@ const contactNav = document.querySelector('#contact');
 const shelveBooks = document.querySelector('#displayBook');
 const addNewBook = document.querySelector('#addBook');
 const contactInfo = document.querySelector('#contactInfo');
+const dateAndTime = document.querySelector('.time-and-date');
+
+dateAndTime.innerHTML = Date();
 
 addNewNav.addEventListener('click', (e) => {
   e.preventDefault();
